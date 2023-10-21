@@ -17,7 +17,7 @@ jobs:
           password: ${{secrets.DOCKERHUB_PWD}}
 
       - name: Construir a imagem de container
-        run: 
+        run: echo "executar o docker push"
       - name: enviar a imagem para o docker registry
         run: echo "executar o docker push"
   CD:
