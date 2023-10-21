@@ -23,8 +23,8 @@ jobs:
             file: ./src/Dockerfile
             push: true
             tags: |
-              zxrenanzx/kube-news: ${{ github.run_number }}
-              zxrenanzx/kube-news:latest
+              zxrenanzx/kube:${{ github.run_number }}
+              zxrenanzx/kube:latest
       - name: Enviar a imagem para o Docker Registry
         run: echo "executar o docker push"
   CD:
