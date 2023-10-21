@@ -25,7 +25,7 @@ jobs:
             tags: |
               zxrenanzx/kube-news:${{ github.run_number }}
               zxrenanzx/kube-news:latest
-      - name: Enviar a imagem para o Docker Registry
+      - name: Push the Docker image to the Docker Registry
         run: echo "executar o docker push"
   CD:
     runs-on: ubuntu-latest
@@ -39,8 +39,14 @@ jobs:
          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY}}
          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
          aws-region: us-east-1        
-    - name: Configurar o kubeconfig
-      run: echo "configurar o kubeconfig"
-    - name: Aplicar o deploy
-      run: echo "executar o kubectl apply"
+    - name: Configure  kubeconfig
+      run: aws eks update-kubeconfig --name meu-cluster-eks --region us-east-1
+    - name: Deploy to Kubernetes cluster
+      uses: Azure/k8s-deploy@v4.9
+      with:
+        manifests: |
+          ./k8s\deployment.yaml
+        images: |
+          zxrenanzx/kube-news:${{ github.run_number }}
+          
 
